@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block sidebar %}
+{% include "sidebar.html" %}
+{% endblock %}
+{% block pagetitle %}
+Master Satuan
+{% endblock %}
+{% block contents%}
+<table class="table table-bordered">
+    <tr>
+        <th>Nama Satuan</th>
+        <th>Aksi</th>
+    </tr>
+    {% for row in table %}
+    <tr>
+        <td class="name">{{ row.name }}</td>
+        <td>
+            <a class="btn btn-secondary" href="{% url 'edit-unit' row.id %}"><i class="fa fa-edit"></i></a>
+            <a class="btn btn-danger" href="{% url 'delete-unit' row.id %}"><i class="fa fa-trash"></i></a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<form method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <div class="text-right">
+        <input class="btn btn-secondary" type="reset" value="Hapus Isian">
+        <input class="btn btn-primary" type="submit" value="Masukkan">
+    </div>
+</form>
+<!-- /.row -->
+{% endblock %}
